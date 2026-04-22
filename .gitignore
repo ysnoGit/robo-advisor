@@ -1,0 +1,15 @@
+node_modules
+.next
+*.log
+.DS_Store
+.env.local
+.env.*.local
+.amplify
+amplify/
+dist/
+build/
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
