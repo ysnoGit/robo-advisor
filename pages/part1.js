@@ -234,13 +234,13 @@ export default function Part1() {
     );
   };
 
-  const renderFrontierChart = (portfolios, gmvp, frontier) => {
-    if (!portfolios) return null;
+  const renderFrontierChart = (gmvp, frontier) => {
+    if (!frontier || frontier.length === 0) return null;
 
     return (
       <div className="card">
         <h3 className="small-title">Efficient Frontier Visualization</h3>
-        <PortfolioChart portfolios={portfolios} gmvp={gmvp} frontier={frontier} />
+        <PortfolioChart portfolios={null} gmvp={gmvp} frontier={frontier} />
       </div>
     );
   };
@@ -317,7 +317,7 @@ export default function Part1() {
           {/* Results Sections - Show based on active tab */}
           {activeTab === 'without-shorts' && (
             <>
-              {renderFrontierChart(portfoliosWithoutShorts, gmvpWithoutShorts, frontierWithoutShorts)}
+              {renderFrontierChart(gmvpWithoutShorts, frontierWithoutShorts)}
               {renderGMVPDetails(gmvpWithoutShorts)}
               {renderStatistics(statsWithoutShorts)}
             </>
@@ -325,7 +325,7 @@ export default function Part1() {
 
           {activeTab === 'with-shorts' && (
             <>
-              {renderFrontierChart(portfoliosWithShorts, gmvpWithShorts, frontierWithShorts)}
+              {renderFrontierChart(gmvpWithShorts, frontierWithShorts)}
               {renderGMVPDetails(gmvpWithShorts)}
               {renderStatistics(statsWithShorts)}
             </>
