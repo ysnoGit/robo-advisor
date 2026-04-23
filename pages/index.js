@@ -16,96 +16,105 @@ const FUND_NAMES = [
 ];
 
 export default function Home() {
-  const [recentPrices, setRecentPrices] = useState(null);
   const [pricesError, setPricesError] = useState(null);
 
   useEffect(() => {
-    // Try to fetch recent prices from Yahoo Finance (optional)
-    fetchRecentPrices();
+    setPricesError('External API integration not configured. Using local data only.');
   }, []);
-
-  const fetchRecentPrices = async () => {
-    try {
-      // This is a simplified example - in real app you might use a financial API
-      setPricesError('External API integration not configured. Using local data only.');
-    } catch (error) {
-      setPricesError('Could not fetch recent prices. Using local historical data.');
-    }
-  };
 
   return (
     <>
       <Navigation />
-      <div className="container">
-        <div className="card">
-          <h1>🤖 Robo Adviser Platform</h1>
-          
-          <h2>Welcome to Your Intelligent Portfolio Optimizer</h2>
-          
-          <p>
-            This platform helps you build and optimize your investment portfolio using advanced
-            financial mathematics. We analyze the historical performance of 10 carefully selected
-            funds and use modern portfolio theory to recommend the best allocation for your risk
-            tolerance.
-          </p>
-
-          <h2>How It Works</h2>
-          
-          <h3>Part 1: Efficient Frontier Analysis</h3>
-          <p>
-            The Efficient Frontier shows the best possible portfolios that maximize return for
-            a given level of risk. We use Monte Carlo simulation to:
-          </p>
-          <ul style={{ marginLeft: '2rem', marginBottom: '1rem' }}>
-            <li>Generate thousands of random portfolio combinations</li>
-            <li>Calculate the risk and return of each portfolio</li>
-            <li>Identify the Global Minimum Variance Portfolio (GMVP)</li>
-            <li>Extract the efficient frontier curve</li>
-          </ul>
-
-          <h3>Part 2: Robo Adviser Recommendation</h3>
-          <p>
-            Complete a brief questionnaire about your financial situation, investment goals, and
-            risk tolerance. Our algorithm will:
-          </p>
-          <ul style={{ marginLeft: '2rem', marginBottom: '1rem' }}>
-            <li>Convert your answers into a risk aversion coefficient</li>
-            <li>Compute your optimal portfolio using utility maximization</li>
-            <li>Recommend specific fund allocations tailored to you</li>
-          </ul>
-
-          <h2>Universe of 10 Funds</h2>
-          <div style={{ marginBottom: '2rem' }}>
-            {FUND_NAMES.map((name, idx) => (
-              <div key={idx} style={{ marginBottom: '0.5rem', padding: '8px', backgroundColor: '#f9f9f9', borderRadius: '4px' }}>
-                <strong>Fund {idx + 1}:</strong> {name}
-              </div>
-            ))}
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="max-w-6xl mx-auto px-4 py-12">
+          {/* Hero Section */}
+          <div className="card">
+            <h1 className="section-title text-blue-600 text-4xl">🤖 Robo Adviser Platform</h1>
+            <p className="text-lg text-gray-600 leading-relaxed">
+              Build and optimize your investment portfolio using advanced financial mathematics. 
+              Our platform analyzes historical fund performance and recommends personalized allocations 
+              based on your risk profile using modern portfolio theory.
+            </p>
           </div>
 
+          {/* How It Works Section */}
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <div className="card">
+              <h2 className="subsection-title text-2xl">📊 Part 1: Efficient Frontier</h2>
+              <p className="text-gray-700 mb-4">
+                Understand the optimal risk-return tradeoff using Monte Carlo simulation analysis.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li>✓ Generate 10,000 random portfolio combinations</li>
+                <li>✓ Calculate risk and return metrics</li>
+                <li>✓ Identify the Global Minimum Variance Portfolio</li>
+                <li>✓ Visualize the efficient frontier curve</li>
+              </ul>
+            </div>
+
+            <div className="card">
+              <h2 className="subsection-title text-2xl">💡 Part 2: Robo Adviser</h2>
+              <p className="text-gray-700 mb-4">
+                Get personalized portfolio recommendations tailored to your financial situation.
+              </p>
+              <ul className="space-y-2 text-gray-700">
+                <li>✓ Answer 10 questions about your finances</li>
+                <li>✓ Automatically calculate your risk aversion</li>
+                <li>✓ Optimize portfolio allocation for you</li>
+                <li>✓ Receive fund allocation recommendations</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Fund Universe */}
+          <div className="card">
+            <h2 className="subsection-title">🏦 Your Fund Universe (10 Funds)</h2>
+            <div className="grid md:grid-cols-2 gap-3">
+              {FUND_NAMES.map((name, idx) => (
+                <div key={idx} className="flex items-start p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-all">
+                  <span className="font-bold text-blue-600 mr-3 flex-shrink-0">#{idx + 1}</span>
+                  <span className="text-gray-700 text-sm">{name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Info Alert */}
           {pricesError && (
-            <div className="info">
+            <div className="alert-info">
               <strong>ℹ️ Note:</strong> {pricesError}
             </div>
           )}
 
-          <h2>Get Started</h2>
-          <div className="button-group">
-            <Link href="/part1">
-              <button>📊 Efficient Frontier (Part 1)</button>
-            </Link>
-            <Link href="/part2">
-              <button className="success">💡 Robo Adviser (Part 2)</button>
-            </Link>
+          {/* CTA Buttons */}
+          <div className="card bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+            <h2 className="text-2xl font-bold mb-6">Ready to Optimize Your Portfolio?</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Link href="/part1" className="group">
+                <button className="w-full btn-primary bg-white text-blue-600 hover:bg-gray-100 py-4 text-lg font-bold shadow-lg transform hover:scale-105 transition-all">
+                  📊 Explore Efficient Frontier
+                </button>
+              </Link>
+              <Link href="/part2" className="group">
+                <button className="w-full btn-success py-4 text-lg font-bold shadow-lg transform hover:scale-105 transition-all">
+                  💡 Get Personalized Recommendations
+                </button>
+              </Link>
+            </div>
           </div>
 
-          <h2>Technical Details</h2>
-          <p>
-            <strong>Data Source:</strong> 5 years of historical price data for each fund<br />
-            <strong>Analysis Method:</strong> Monte Carlo simulation with 10,000+ iterations<br />
-            <strong>Optimization:</strong> Utility maximization with customizable risk aversion<br />
-            <strong>Technology:</strong> Next.js, React, Recharts
-          </p>
+          {/* Footer Info */}
+          <div className="card text-center text-gray-600">
+            <p className="text-sm mb-2">
+              <strong>Data Source:</strong> 5 years of historical pricing data
+            </p>
+            <p className="text-sm mb-2">
+              <strong>Analysis Method:</strong> Monte Carlo simulation with 10,000+ iterations
+            </p>
+            <p className="text-sm">
+              <strong>Technology:</strong> Next.js, React, Recharts, Tailwind CSS
+            </p>
+          </div>
         </div>
       </div>
     </>
